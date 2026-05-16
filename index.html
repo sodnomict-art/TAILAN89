@@ -372,10 +372,10 @@
                     iconColor: "text-indigo-500",
                     bannerImage: "https://raw.githubusercontent.com/sodnomict-art/my-web-images/main/eb0e020a-f040-432f-abc3-875744ec2dcc.jpeg",
                     title: "Canvas Pro & Gemini",
-                    subtitle: "Интерактив даалгавар үүсгэх практик",
+                    subtitle: "",
                     content: (
-                        <div className="space-y-4 text-left max-w-4xl mx-auto flex flex-col items-center justify-center">
-                            <p className="text-lg md:text-xl text-slate-600 font-medium leading-relaxed text-center px-4">
+                        <div className="space-y-2 text-left max-w-2xl mx-auto flex flex-col items-center justify-center">
+                            <p className="text-xs lg:text-sm text-slate-600 font-medium leading-relaxed text-center px-2">
                                 Сургалтын хүрээнд Gemini-ийн <span className="font-bold text-indigo-600">Canvas Pro</span> тохиргоог танилцуулж, интерактив дасгал даалгаврыг хялбар аргаар хэрхэн үүсгэх практик дадлага хийлээ.
                             </p>
                             
@@ -653,13 +653,13 @@
                                                 <i className={`${slide.icon} text-2xl lg:text-4xl ${slide.iconColor}`}></i>
                                             </div>
                                             <div>
-                                                <h2 className="text-3xl md:text-5xl lg:text-6xl font-black text-white tracking-tight drop-shadow-xl">{slide.title}</h2>
+                                                <h2 className="text-2xl lg:text-5xl font-black text-white tracking-tight drop-shadow-xl">{slide.title}</h2>
                                             </div>
                                         </div>
                                     </div>
                                     
                                     <div className="w-full max-w-4xl text-center px-4 flex flex-col items-center flex-1 min-h-0 justify-center">
-                                        <h3 className="anim-element slide-in d-3 text-xl lg:text-3xl text-indigo-600 font-extrabold mb-3 lg:mb-4 tracking-wide">{slide.subtitle}</h3>
+                                        {slide.subtitle && <h3 className="anim-element slide-in d-3 text-xl lg:text-3xl text-indigo-600 font-extrabold mb-3 lg:mb-4 tracking-wide">{slide.subtitle}</h3>}
                                         <div className="anim-element slide-in d-4 mb-4 lg:mb-6 w-full line-clamp-3 lg:line-clamp-none">{slide.content}</div>
                                         
                                         {slide.highlights && (
