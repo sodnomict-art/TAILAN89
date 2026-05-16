@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gemini Сургалтын Тайлан | Official Premium Edition</title>
-    <!-- Favicon нэмлээ -->
     <link rel="icon" href="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg">
     
     <script src="https://cdn.tailwindcss.com"></script>
@@ -22,6 +21,10 @@
             perspective: 1200px;
             background-color: #f8fafc;
             color: #1E293B;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
         }
 
         /* --- Dynamic Animated Background --- */
@@ -67,19 +70,6 @@
         }
         .ken-burns { animation: slow-pan 20s infinite alternate ease-in-out; }
 
-        /* --- Floating Gallery Images --- */
-        @keyframes float-1 { 0%, 100% { transform: translateY(0) rotate(-4deg); } 50% { transform: translateY(-8px) rotate(-2deg); } }
-        @keyframes float-2 { 0%, 100% { transform: translateY(0) rotate(2deg); } 50% { transform: translateY(-6px) rotate(4deg); } }
-        @keyframes float-3 { 0%, 100% { transform: translateY(0) rotate(-1deg); } 50% { transform: translateY(-10px) rotate(-3deg); } }
-        @keyframes float-4 { 0%, 100% { transform: translateY(0) rotate(5deg); } 50% { transform: translateY(-12px) rotate(3deg); } }
-        @keyframes float-5 { 0%, 100% { transform: translateY(0) rotate(-2deg); } 50% { transform: translateY(-7px) rotate(0deg); } }
-
-        .float-img-1 { animation: float-1 5s ease-in-out infinite; }
-        .float-img-2 { animation: float-2 6s ease-in-out infinite 0.5s; }
-        .float-img-3 { animation: float-3 7s ease-in-out infinite 1s; }
-        .float-img-4 { animation: float-4 5.5s ease-in-out infinite 1.5s; }
-        .float-img-5 { animation: float-5 6.5s ease-in-out infinite 2s; }
-
         /* --- Autoplay Progress Bar --- */
         @keyframes progress-bar {
             0% { width: 0%; }
@@ -87,9 +77,9 @@
         }
         .animate-progress { animation: progress-bar 5.5s linear forwards; }
 
-        /* --- Premium Glass Card --- */
+        /* --- Premium Glass Card (Strict 16:9) --- */
         .premium-glass-card {
-            background: rgba(255, 255, 255, 0.65);
+            background: rgba(255, 255, 255, 0.7);
             backdrop-filter: blur(30px);
             -webkit-backdrop-filter: blur(30px);
             border: 1px solid rgba(255, 255, 255, 0.8);
@@ -133,11 +123,11 @@
         .pop-in { animation: popOut 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) forwards; }
 
         @keyframes elegantSlideUp {
-            from { opacity: 0; transform: translateY(40px); filter: blur(5px); }
+            from { opacity: 0; transform: translateY(30px); filter: blur(4px); }
             to { opacity: 1; transform: translateY(0); filter: blur(0); }
         }
         @keyframes popOut {
-            0% { opacity: 0; transform: scale(0.85); }
+            0% { opacity: 0; transform: scale(0.9); }
             100% { opacity: 1; transform: scale(1); }
         }
 
@@ -151,10 +141,13 @@
             70% { box-shadow: 0 0 0 15px rgba(239, 68, 68, 0); }
             100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
         }
+        
+        /* Hide scrollbar for clean 16:9 view */
+        ::-webkit-scrollbar { display: none; }
     </style>
 </head>
-<body>
-    <div id="root"></div>
+<body class="p-2 md:p-6 lg:p-8">
+    <div id="root" class="w-full max-w-[1400px] mx-auto flex items-center justify-center"></div>
 
     <script type="text/babel">
         const { useState, useEffect, useRef } = React;
@@ -257,8 +250,8 @@
                         alt={alt} 
                         draggable={false}
                     />
-                    <div className={`absolute top-4 right-4 bg-black/60 text-white text-[10px] px-3 py-1.5 rounded-full pointer-events-none flex items-center gap-2 backdrop-blur-sm border border-white/20 z-50 transition-opacity duration-300 ${isDragging ? 'opacity-100' : 'opacity-0 group-hover/drag:opacity-100'}`}>
-                        <i className={`fa-solid ${axis === 'both' ? 'fa-arrows-up-down-left-right' : 'fa-arrows-up-down'}`}></i> Зөөх
+                    <div className={`absolute top-3 right-3 bg-black/60 text-white text-[10px] px-2.5 py-1 rounded-full pointer-events-none flex items-center gap-1.5 backdrop-blur-sm border border-white/20 z-50 transition-opacity duration-300 ${isDragging ? 'opacity-100' : 'opacity-0 group-hover/drag:opacity-100'}`}>
+                        <i className={`fa-solid ${axis === 'both' ? 'fa-arrows-up-down-left-right' : 'fa-arrows-up-down'}`}></i>
                     </div>
                 </div>
             );
@@ -294,15 +287,15 @@
                     id: 0,
                     customIcon: (
                         <div className="google-glow-container">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" className="w-16 h-16" alt="Google Logo" />
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" className="w-12 h-12 lg:w-16 lg:h-16" alt="Google Logo" />
                         </div>
                     ),
                     title: "Gemini in Education",
-                    subtitle: <span className="text-gradient-vibrant font-black text-2xl md:text-4xl tracking-tight">"Нэг баг - Нэг аргазүй" аян</span>,
+                    subtitle: <span className="text-gradient-vibrant font-black text-xl lg:text-3xl tracking-tight">"Нэг баг - Нэг аргазүй" аян</span>,
                     content: (
-                        <div className="space-y-3 mt-6">
-                            <p className="text-2xl font-black text-slate-800 tracking-widest">БИД ХАМТДАА МХБ</p>
-                            <p className="text-lg text-slate-500 font-medium">
+                        <div className="space-y-2 mt-4 lg:mt-6">
+                            <p className="text-xl lg:text-2xl font-black text-slate-800 tracking-widest">БИД ХАМТДАА МХБ</p>
+                            <p className="text-sm lg:text-base text-slate-500 font-medium">
                                 Мэдээлэл зүйн багш Б.Содномбалжир <span className="mx-2 text-slate-300">|</span> Монгол хэлний багш Д.Хоролмаа
                             </p>
                         </div>
@@ -317,11 +310,11 @@
                     title: "Ачааллыг бууруулах нь",
                     subtitle: "Цаг хугацаа хэмнэх ухаалаг шийдэл",
                     content: (
-                        <div className="flex flex-col items-center">
-                            <span className="inline-flex items-center px-4 py-1.5 mb-4 bg-blue-50 text-blue-600 rounded-full text-xs font-extrabold tracking-widest uppercase border border-blue-100 shadow-sm">
-                                <i className="fa-solid fa-globe mr-2 text-sm"></i> Олон улсын туршлагаас
+                        <div className="flex flex-col items-center max-w-2xl mx-auto">
+                            <span className="inline-flex items-center px-3 py-1 mb-3 bg-blue-50 text-blue-600 rounded-full text-[10px] lg:text-xs font-extrabold tracking-widest uppercase border border-blue-100 shadow-sm">
+                                <i className="fa-solid fa-globe mr-2"></i> Олон улсын туршлагаас
                             </span>
-                            <p>Gemini AI нь өдөр тутмын төлөвлөгөө боловсруулах, даалгавар бэлтгэх цагийг эрс багасгасан нь бодитоор батлагдсан.</p>
+                            <p className="text-sm lg:text-base">Gemini AI нь өдөр тутмын төлөвлөгөө боловсруулах, даалгавар бэлтгэх цагийг эрс багасгасан нь бодитоор батлагдсан.</p>
                         </div>
                     ),
                     stats: [
@@ -338,11 +331,11 @@
                     title: "Интерактив сургалт",
                     subtitle: "Сурагчдын идэвх оролцоог нэмэгдүүлэх",
                     content: (
-                        <div className="flex flex-col items-center">
-                            <span className="inline-flex items-center px-4 py-1.5 mb-4 bg-emerald-50 text-emerald-600 rounded-full text-xs font-extrabold tracking-widest uppercase border border-emerald-100 shadow-sm">
-                                <i className="fa-solid fa-earth-americas mr-2 text-sm"></i> Олон улсын туршлагаас
+                        <div className="flex flex-col items-center max-w-2xl mx-auto">
+                            <span className="inline-flex items-center px-3 py-1 mb-3 bg-emerald-50 text-emerald-600 rounded-full text-[10px] lg:text-xs font-extrabold tracking-widest uppercase border border-emerald-100 shadow-sm">
+                                <i className="fa-solid fa-earth-americas mr-2"></i> Олон улсын туршлагаас
                             </span>
-                            <p>Canvas Pro болон Gemini-г хослуулснаар хичээлийг илүү сонирхолтой, ойлгомжтой болгодог нь нотлогдсон.</p>
+                            <p className="text-sm lg:text-base">Canvas Pro болон Gemini-г хослуулснаар хичээлийг илүү сонирхолтой, ойлгомжтой болгодог нь нотлогдсон.</p>
                         </div>
                     ),
                     stats: [
@@ -360,16 +353,16 @@
                     title: "Canvas Pro & Gemini",
                     subtitle: "Интерактив даалгавар үүсгэх практик",
                     content: (
-                        <div className="space-y-4 text-left max-w-4xl mx-auto flex flex-col items-center justify-center">
-                            <p className="text-lg md:text-xl text-slate-600 font-medium leading-relaxed text-center px-4">
+                        <div className="space-y-3 text-left max-w-3xl mx-auto flex flex-col items-center justify-center">
+                            <p className="text-sm lg:text-base text-slate-600 font-medium leading-relaxed text-center px-2">
                                 Сургалтын хүрээнд Gemini-ийн <span className="font-bold text-indigo-600">Canvas Pro</span> тохиргоог танилцуулж, интерактив дасгал даалгаврыг хялбар аргаар хэрхэн үүсгэх практик дадлага хийлээ.
                             </p>
                             
-                            <div className="bg-indigo-50/80 border-l-4 border-indigo-500 p-5 w-full rounded-r-2xl shadow-sm relative overflow-hidden hover:scale-[1.02] transition-transform">
-                                <i className="fa-solid fa-quote-left absolute top-3 right-4 text-indigo-100 text-4xl"></i>
-                                <p className="text-indigo-900 font-semibold text-base md:text-lg relative z-10 pl-2">
+                            <div className="bg-indigo-50/80 border-l-4 border-indigo-500 p-4 w-full rounded-r-xl shadow-sm relative overflow-hidden">
+                                <i className="fa-solid fa-quote-left absolute top-2 right-3 text-indigo-100 text-3xl"></i>
+                                <p className="text-indigo-900 font-semibold text-sm lg:text-base relative z-10 pl-2">
                                     <i className="fa-solid fa-check-double mr-2 text-indigo-500"></i>
-                                    Гол үр дүн: Багш нар үүсгэсэн даалгавраа хэрхэн зөв татаж авах, өөрийн хичээлдээ шууд ашиглах аргачлалыг амжилттай эзэмшсэн.
+                                    Гол үр дүн: Багш нар үүсгэсэн даалгавраа хэрхэн зөв татаж авах, шууд ашиглах аргачлалыг эзэмшсэн.
                                 </p>
                             </div>
                         </div>
@@ -377,8 +370,7 @@
                     highlights: [
                         { icon: "fa-sliders", text: "Canvas Pro тохиргоо", color: "text-blue-500" },
                         { icon: "fa-wand-magic-sparkles", text: "Даалгавар хялбар үүсгэх", color: "text-purple-500" },
-                        { icon: "fa-download", text: "Татаж авах, Ашиглах", color: "text-emerald-500" },
-                        { icon: "fa-users-gear", text: "Бодит практик дадлага", color: "text-orange-500" }
+                        { icon: "fa-download", text: "Татаж авах, Ашиглах", color: "text-emerald-500" }
                     ],
                     layout: "banner-top",
                     badge: { text: "ГОЛ АГУУЛГА", color: "bg-indigo-100 text-indigo-700 border-indigo-200" }
@@ -388,7 +380,7 @@
                     image: "https://raw.githubusercontent.com/sodnomict-art/my-web-images/main/da626f58-dfba-420d-b93c-ed924631fc51.jpeg",
                     title: "Багшийн AI Гарын авлага",
                     subtitle: "Хүчирхэг Prompt & AI Хэрэгслүүд",
-                    content: "Сургалтын үр дүнг бататгах зорилгоор багш бүрт өдөр тутмын ажилд хэрэгцээтэй AI хэрэгслүүдийн жагсаалт болон хиймэл оюунтай оновчтой харилцах 'Prompt' (Шидэт үг) бичих аргачлал бүхий гарын авлагыг гардуулж өглөө.",
+                    content: "Сургалтын үр дүнг бататгах зорилгоор багш бүрт өдөр тутмын ажилд хэрэгцээтэй AI хэрэгслүүдийн жагсаалт болон хиймэл оюунтай оновчтой харилцах 'Prompt' бичих аргачлал бүхий гарын авлагыг гардуулж өглөө.",
                     highlights: [
                         { icon: "fa-wand-magic-sparkles", text: "Prompt бичих томьёо", color: "text-purple-500" },
                         { icon: "fa-robot", text: "Хэрэгцээт AI жагсаалт", color: "text-blue-500" },
@@ -436,7 +428,7 @@
                 return () => clearInterval(interval);
             }, [isPlaying, slides.length]);
 
-            // Видео горим (Play/Recording) үед 7-р слайдын зургуудыг автоматаар томруулж эргүүлэх эффект
+            // Видео горимд 7-р слайдын зургуудыг автоматаар томруулах эффект
             useEffect(() => {
                 let interval;
                 if (isPlaying && current === 6) {
@@ -449,7 +441,7 @@
                         } else {
                             setAutoZoomIndex(-1);
                         }
-                    }, 1000); // 1 секунд тутамд дараагийн зураг руу шилжинэ
+                    }, 1000); 
                 } else {
                     setAutoZoomIndex(-1);
                 }
@@ -458,8 +450,8 @@
 
             const handleMouseMove = (e) => {
                 if (cardRef.current) {
-                    const x = (e.clientX / window.innerWidth - 0.5) * 10;
-                    const y = (e.clientY / window.innerHeight - 0.5) * -10;
+                    const x = (e.clientX / window.innerWidth - 0.5) * 6; // Эргэлтийг багасгаж илүү тогтвортой болгосон
+                    const y = (e.clientY / window.innerHeight - 0.5) * -6;
                     cardRef.current.style.transform = `rotateY(${x}deg) rotateX(${y}deg)`;
                 }
             };
@@ -487,7 +479,7 @@
                         const url = URL.createObjectURL(blob);
                         const a = document.createElement('a');
                         a.href = url;
-                        a.download = 'Gemini_Report_Animated.webm';
+                        a.download = 'Gemini_Report_16x9.webm';
                         a.click();
                         URL.revokeObjectURL(url);
                         setIsRecording(false);
@@ -525,13 +517,13 @@
             const slide = slides[current];
 
             return (
-                <div className="min-h-screen flex items-center justify-center p-4 md:p-8 relative overflow-hidden"
+                <div className="w-full flex items-center justify-center relative overflow-hidden"
                      onMouseMove={handleMouseMove}
                      onMouseLeave={handleMouseLeave}>
                     
                     <div className="vibrant-bg"></div>
                     
-                    {/* Animated Ambient Blobs & Particles for Video Richness */}
+                    {/* Animated Ambient Blobs & Particles */}
                     <div className="absolute inset-0 pointer-events-none z-[-3] overflow-hidden filter blur-[80px]">
                         <div className="ambient-blob ambient-p-1 bg-blue-400 w-[50vw] h-[50vw] -top-20 -left-20 mix-blend-multiply opacity-40"></div>
                         <div className="ambient-blob ambient-p-2 bg-purple-400 w-[45vw] h-[45vw] top-[20%] right-[5%] mix-blend-multiply opacity-30"></div>
@@ -548,48 +540,54 @@
 
                     {/* Recording Indicator */}
                     {isRecording && (
-                        <div className="fixed top-6 right-6 z-[100] flex items-center gap-3 bg-black/70 backdrop-blur-md px-5 py-2.5 rounded-full border border-red-500/50 shadow-2xl">
-                            <div className="w-3 h-3 bg-red-500 rounded-full animate-ping"></div>
-                            <span className="text-white font-black text-sm tracking-widest uppercase">REC</span>
+                        <div className="fixed top-6 right-6 z-[100] flex items-center gap-3 bg-black/70 backdrop-blur-md px-4 py-2 rounded-full border border-red-500/50 shadow-2xl">
+                            <div className="w-2.5 h-2.5 bg-red-500 rounded-full animate-ping"></div>
+                            <span className="text-white font-black text-xs tracking-widest uppercase">REC</span>
                         </div>
                     )}
 
-                    {/* School Identity Header */}
-                    <div className="absolute top-8 left-8 flex items-center z-50 bg-white/80 backdrop-blur-lg p-2 pr-6 rounded-full shadow-lg border border-white/50 hover:bg-white transition-colors duration-300">
-                        <img src="https://raw.githubusercontent.com/sodnomict-art/my-web-images/main/429003238_413778061128630_6168428532216527806_n_1251461419425659.png" 
-                             className="w-14 h-14 rounded-full border-2 border-white shadow-sm mr-4 object-cover" alt="School Logo" />
-                        <div className="flex flex-col">
-                            <span className="text-blue-900 font-black text-xs uppercase tracking-widest leading-none">МУГБ Д.Жамьянгийн нэрэмжит</span>
-                            <span className="text-slate-500 text-[10px] uppercase font-bold mt-1.5 tracking-wider">Гуулин тосгоны ЕБС</span>
-                        </div>
-                    </div>
+                    {/* School Identity Header (Absolute to Card for 16:9 alignment) */}
+                    
 
-                    {/* Main Content Card */}
+                    {/* Main Content Card - STRICT 16:9 Aspect Ratio Container */}
+                    {/* w-full урттай боловч aspect-video буюу 16:9 харьцааг хатуу барина */}
                     <div ref={cardRef} 
-                         className="w-full max-w-6xl premium-glass-card rounded-[3rem] p-8 md:p-16 z-10 min-h-[600px] flex flex-col justify-center transition-transform duration-200 relative overflow-hidden">
+                         className="w-full max-w-[1280px] aspect-video premium-glass-card rounded-[1.5rem] lg:rounded-[2.5rem] p-6 lg:p-10 z-10 flex flex-col relative overflow-hidden shadow-2xl mx-auto my-auto border-white/60">
                         
-                        <div key={current} className="relative w-full h-full flex flex-col items-center justify-center mb-12" style={{ transform: 'translateZ(40px)' }}>
+                        {/* Дотоод header */}
+                        <div className="absolute top-6 left-6 lg:top-8 lg:left-8 flex items-center z-50 bg-white/80 backdrop-blur-lg p-1.5 pr-4 rounded-full shadow-md border border-white/50 hover:bg-white transition-colors duration-300">
+                            <img src="https://raw.githubusercontent.com/sodnomict-art/my-web-images/main/429003238_413778061128630_6168428532216527806_n_1251461419425659.png" 
+                                 className="w-10 h-10 lg:w-12 lg:h-12 rounded-full border-2 border-white shadow-sm mr-3 object-cover" alt="School Logo" />
+                            <div className="flex flex-col">
+                                <span className="text-blue-900 font-black text-[9px] lg:text-[10px] uppercase tracking-widest leading-none">МУГБ Д.Жамьянгийн нэрэмжит</span>
+                                <span className="text-slate-500 text-[8px] lg:text-[9px] uppercase font-bold mt-1 tracking-wider">Гуулин тосгоны ЕБС</span>
+                            </div>
+                        </div>
+
+                        {/* Slide Content Area (flex-1 and min-h-0 prevents overflowing) */}
+                        <div key={current} className="relative w-full flex-1 min-h-0 flex flex-col items-center justify-center pt-8 pb-10 lg:pb-12">
+                            
                             {slide.badge && (
-                                <div className={`anim-element slide-in d-1 absolute -top-24 right-0 px-6 py-2 rounded-full text-xs font-black border shadow-xl ${slide.badge.color}`}>
+                                <div className={`anim-element slide-in d-1 absolute top-0 right-0 px-4 py-1.5 lg:px-5 lg:py-2 rounded-full text-[9px] lg:text-[11px] font-black border shadow-md ${slide.badge.color}`}>
                                     {slide.badge.text}
                                 </div>
                             )}
 
                             {/* Center Layout */}
                             {slide.layout === "center" && (
-                                <div className="text-center w-full max-w-4xl mx-auto">
-                                    <div className="anim-element pop-in d-2 mb-10 flex justify-center">
-                                        {slide.customIcon || <i className={`${slide.icon} text-8xl ${slide.iconColor}`}></i>}
+                                <div className="text-center w-full max-w-4xl mx-auto px-4 flex flex-col items-center justify-center h-full">
+                                    <div className="anim-element pop-in d-2 mb-6 lg:mb-8 flex justify-center">
+                                        {slide.customIcon || <i className={`${slide.icon} text-6xl lg:text-7xl ${slide.iconColor}`}></i>}
                                     </div>
-                                    <h2 className="anim-element slide-in d-3 text-5xl md:text-7xl font-black text-slate-800 mb-8 tracking-tighter">{slide.title}</h2>
-                                    <div className="anim-element slide-in d-4 mb-10">{slide.subtitle}</div>
-                                    <div className="anim-element slide-in d-5 text-lg text-slate-600 leading-relaxed font-medium">{slide.content}</div>
+                                    <h2 className="anim-element slide-in d-3 text-4xl lg:text-6xl font-black text-slate-800 mb-4 lg:mb-6 tracking-tighter leading-tight">{slide.title}</h2>
+                                    <div className="anim-element slide-in d-4 mb-6 lg:mb-8">{slide.subtitle}</div>
+                                    <div className="anim-element slide-in d-5 text-sm lg:text-lg text-slate-600 leading-relaxed font-medium">{slide.content}</div>
                                     
                                     {slide.highlights && (
-                                        <div className="flex flex-wrap justify-center gap-4 mt-12">
+                                        <div className="flex flex-wrap justify-center gap-3 mt-8 lg:mt-10">
                                             {slide.highlights.map((h, i) => (
-                                                <div key={i} className="px-6 py-3 bg-white/80 rounded-2xl text-sm font-bold shadow-sm flex items-center border border-slate-100 anim-element pop-in hover:shadow-md hover:-translate-y-1 transition-all" style={{animationDelay: `${0.6+i*0.1}s`}}>
-                                                    <i className={`${h.icon} mr-3 ${h.color} text-lg`}></i>{h.text}
+                                                <div key={i} className="px-4 py-2 bg-white/80 rounded-xl text-xs lg:text-sm font-bold shadow-sm flex items-center border border-slate-100 anim-element pop-in hover:shadow-md hover:-translate-y-1 transition-all" style={{animationDelay: `${0.6+i*0.1}s`}}>
+                                                    <i className={`${h.icon} mr-2 ${h.color} text-base`}></i>{h.text}
                                                 </div>
                                             ))}
                                         </div>
@@ -599,30 +597,30 @@
 
                             {/* Banner Top Layout */}
                             {slide.layout === "banner-top" && (
-                                <div className="flex flex-col w-full h-full items-center justify-start mt-4">
-                                    <div className="w-[calc(100%+2rem)] md:w-[calc(100%+6rem)] h-56 md:h-72 lg:h-80 -mt-2 md:-mt-6 mb-8 rounded-[2.5rem] overflow-hidden shadow-2xl border-[6px] border-white anim-element pop-in d-1 relative flex-shrink-0 group">
+                                <div className="flex flex-col w-full h-full items-center justify-start mt-8 lg:mt-4">
+                                    {/* Зургийн өндрийг h-[50%] lg:h-[55%] болгож нэмэгдүүллээ */}
+                                    <div className="w-[95%] lg:w-[85%] h-[50%] lg:h-[55%] rounded-[1.5rem] lg:rounded-[2rem] overflow-hidden shadow-xl border-[4px] lg:border-[6px] border-white anim-element pop-in d-1 relative flex-shrink-0 group mb-4 lg:mb-6">
                                         <DraggableImage src={slide.bannerImage} className="w-full h-full ken-burns" alt="Banner" initialPos={0} axis="both" objectFit="object-cover" />
                                         <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-slate-900/20 to-transparent pointer-events-none"></div>
-                                        <div className="absolute inset-0 bg-gradient-to-b from-white/30 to-transparent mix-blend-overlay pointer-events-none"></div>
-                                        <div className="absolute bottom-6 left-6 md:left-10 flex items-center gap-4 md:gap-6 pointer-events-none">
-                                            <div className="w-16 h-16 md:w-24 md:h-24 bg-white/95 backdrop-blur-md rounded-2xl flex items-center justify-center shadow-xl border border-white/50">
-                                                <i className={`${slide.icon} text-3xl md:text-5xl ${slide.iconColor}`}></i>
+                                        <div className="absolute bottom-4 left-4 lg:bottom-6 lg:left-8 flex items-center gap-3 lg:gap-5 pointer-events-none">
+                                            <div className="w-12 h-12 lg:w-16 lg:h-16 bg-white/95 backdrop-blur-md rounded-xl flex items-center justify-center shadow-lg border border-white/50">
+                                                <i className={`${slide.icon} text-2xl lg:text-4xl ${slide.iconColor}`}></i>
                                             </div>
                                             <div>
-                                                <h2 className="text-4xl md:text-6xl font-black text-white tracking-tight drop-shadow-xl">{slide.title}</h2>
+                                                <h2 className="text-2xl lg:text-5xl font-black text-white tracking-tight drop-shadow-xl">{slide.title}</h2>
                                             </div>
                                         </div>
                                     </div>
                                     
-                                    <div className="w-full max-w-5xl text-center px-2 flex flex-col items-center flex-grow justify-center pb-4">
-                                        <h3 className="anim-element slide-in d-3 text-2xl md:text-3xl text-indigo-600 font-extrabold mb-6 tracking-wide">{slide.subtitle}</h3>
-                                        <div className="anim-element slide-in d-4 mb-8 w-full">{slide.content}</div>
+                                    <div className="w-full max-w-4xl text-center px-4 flex flex-col items-center flex-1 min-h-0 justify-center">
+                                        <h3 className="anim-element slide-in d-3 text-lg lg:text-2xl text-indigo-600 font-extrabold mb-3 lg:mb-4 tracking-wide">{slide.subtitle}</h3>
+                                        <div className="anim-element slide-in d-4 mb-4 lg:mb-6 w-full line-clamp-3 lg:line-clamp-none">{slide.content}</div>
                                         
                                         {slide.highlights && (
-                                            <div className="flex flex-wrap justify-center gap-4 md:gap-6 w-full mt-auto">
+                                            <div className="flex flex-wrap justify-center gap-2 lg:gap-4 w-full mt-auto pb-2">
                                                 {slide.highlights.map((h, i) => (
-                                                    <div key={i} className="px-6 py-4 bg-white/90 rounded-2xl text-sm md:text-base font-bold shadow-md flex items-center border border-slate-100 anim-element pop-in hover:shadow-lg hover:-translate-y-1 transition-all" style={{animationDelay: `${0.5+i*0.1}s`}}>
-                                                        <i className={`${h.icon} mr-3 ${h.color} text-xl`}></i>{h.text}
+                                                    <div key={i} className="px-3 py-1.5 lg:px-5 lg:py-2.5 bg-white/90 rounded-xl text-[10px] lg:text-sm font-bold shadow-sm flex items-center border border-slate-100 anim-element pop-in hover:shadow-md hover:-translate-y-1 transition-all" style={{animationDelay: `${0.5+i*0.1}s`}}>
+                                                        <i className={`${h.icon} mr-1.5 lg:mr-2 ${h.color} text-sm lg:text-lg`}></i>{h.text}
                                                     </div>
                                                 ))}
                                             </div>
@@ -631,28 +629,29 @@
                                 </div>
                             )}
 
-                            {/* Split Layout - Слайд 5 */}
+                            {/* Split Layout (Слайд 4 болон 5) */}
                             {slide.layout === "split" && (
-                                <div className="flex flex-col md:flex-row items-center justify-between gap-8 md:gap-12 text-left w-full h-full">
-                                    <div className="w-full md:w-7/12 flex flex-col justify-center">
-                                        <h2 className="anim-element slide-in d-2 text-4xl md:text-4xl lg:text-5xl font-black text-slate-800 mb-6 tracking-tight">{slide.title}</h2>
-                                        <h3 className="anim-element slide-in d-3 text-xl lg:text-2xl text-blue-600 font-extrabold mb-6 md:mb-8">{slide.subtitle}</h3>
-                                        <div className="anim-element slide-in d-4 text-slate-600 mb-8 md:mb-10 text-lg lg:text-xl font-medium leading-relaxed">{slide.content}</div>
+                                <div className="flex flex-row items-center justify-between gap-6 lg:gap-10 text-left w-full h-full px-4 lg:px-8 mt-4">
+                                    <div className="w-1/2 flex flex-col justify-center">
+                                        <h2 className="anim-element slide-in d-2 text-3xl lg:text-5xl font-black text-slate-800 mb-3 lg:mb-5 tracking-tight leading-tight">{slide.title}</h2>
+                                        <h3 className="anim-element slide-in d-3 text-base lg:text-xl text-blue-600 font-extrabold mb-4 lg:mb-6">{slide.subtitle}</h3>
+                                        <div className="anim-element slide-in d-4 text-slate-600 mb-6 lg:mb-8 text-sm lg:text-base font-medium leading-relaxed">{slide.content}</div>
                                         
-                                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4">
+                                        <div className="grid grid-cols-1 gap-2 lg:gap-3">
                                             {slide.highlights && slide.highlights.map((h, i) => (
-                                                <div key={i} className="px-4 py-3 md:px-5 md:py-4 bg-white/80 rounded-2xl text-sm md:text-base font-bold shadow-sm flex items-center border border-slate-100 anim-element pop-in hover:-translate-y-1 transition-transform" style={{animationDelay: `${0.5+i*0.1}s`}}>
-                                                    <i className={`${h.icon} mr-3 ${h.color} text-lg md:text-xl`}></i>{h.text}
+                                                <div key={i} className="px-3 py-2 lg:px-4 lg:py-3 bg-white/80 rounded-xl text-xs lg:text-sm font-bold shadow-sm flex items-center border border-slate-100 anim-element pop-in hover:-translate-y-1 transition-transform" style={{animationDelay: `${0.5+i*0.1}s`}}>
+                                                    <i className={`${h.icon} mr-2 lg:mr-3 ${h.color} text-base lg:text-lg`}></i>{h.text}
                                                 </div>
                                             ))}
                                         </div>
                                     </div>
-                                    <div className="w-full md:w-5/12 lg:w-4/12 anim-element pop-in d-3 flex justify-center mt-8 md:mt-0">
-                                        {/* Босоо/Portrait хүрээ (aspect-[3/4]) */}
-                                        <div className="w-full max-w-sm aspect-[3/4] rounded-[2rem] md:rounded-[2.5rem] overflow-hidden shadow-2xl border-[6px] md:border-[8px] border-white transform rotate-2 hover:rotate-0 transition-transform duration-700 bg-slate-100 relative group">
-                                            <DraggableImage src={slide.image} className="w-full h-full ken-burns" alt="Гарын авлага" initialPos={10} axis="both" objectFit="object-cover" />
+                                    
+                                    <div className="w-1/2 h-full py-4 anim-element pop-in d-3 flex justify-center items-center">
+                                        {/* Слайд 4-н зургийн өндрийг бага зэрэг нэмэгдүүлэхийн тулд h-[90%] (өнгөх h-[80%] эсвэл h-full) болгож өөрчиллөө */}
+                                        <div className="h-[90%] lg:h-[95%] aspect-[3/4] max-w-full rounded-[1.5rem] lg:rounded-[2rem] overflow-hidden shadow-xl border-[4px] lg:border-[6px] border-white transform rotate-2 hover:rotate-0 transition-transform duration-700 bg-slate-100 relative group">
+                                            <DraggableImage src={slide.image} className="w-full h-full ken-burns" alt="Image" initialPos={10} axis="both" objectFit="object-cover" />
                                             <div className="absolute inset-0 bg-gradient-to-t from-slate-900/20 to-transparent pointer-events-none"></div>
-                                            <div className="absolute inset-0 ring-1 ring-inset ring-black/10 rounded-[1.5rem] md:rounded-[2rem] pointer-events-none"></div>
+                                            <div className="absolute inset-0 ring-1 ring-inset ring-black/10 rounded-[1.5rem] lg:rounded-[2rem] pointer-events-none"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -660,28 +659,28 @@
 
                             {/* Stats Layout */}
                             {slide.layout === "stats" && (
-                                <div className="text-center flex flex-col items-center w-full">
+                                <div className="text-center flex flex-col items-center justify-center h-full w-full px-4">
                                     {slide.icon && (
-                                        <div className="anim-element pop-in d-2 mb-6 flex justify-center">
-                                            <i className={`${slide.icon} text-5xl md:text-6xl ${slide.iconColor}`}></i>
+                                        <div className="anim-element pop-in d-2 mb-4 lg:mb-6 flex justify-center">
+                                            <i className={`${slide.icon} text-5xl lg:text-6xl ${slide.iconColor}`}></i>
                                         </div>
                                     )}
-                                    <h2 className="anim-element slide-in d-3 text-5xl md:text-6xl font-black text-slate-800 mb-4 tracking-tighter">{slide.title}</h2>
-                                    <h3 className="anim-element slide-in d-4 text-xl md:text-2xl text-slate-500 font-extrabold mb-8">{slide.subtitle}</h3>
+                                    <h2 className="anim-element slide-in d-3 text-4xl lg:text-6xl font-black text-slate-800 mb-3 lg:mb-4 tracking-tighter leading-tight">{slide.title}</h2>
+                                    <h3 className="anim-element slide-in d-4 text-lg lg:text-xl text-slate-500 font-extrabold mb-6 lg:mb-8">{slide.subtitle}</h3>
                                     
-                                    <div className="anim-element slide-in d-5 text-lg text-slate-600 font-medium max-w-3xl mx-auto mb-10">
+                                    <div className="anim-element slide-in d-5 text-sm lg:text-base text-slate-600 font-medium max-w-2xl mx-auto mb-8 lg:mb-10">
                                         {slide.content}
                                     </div>
 
                                     {slide.stats && (
-                                        <div className="flex flex-col md:flex-row justify-center gap-6 md:gap-10 w-full">
+                                        <div className="flex flex-row justify-center gap-4 lg:gap-8 w-full">
                                             {slide.stats.map((stat, idx) => (
-                                                <div key={idx} className="bg-white/60 p-6 md:p-8 rounded-[2rem] shadow-sm border border-slate-100 flex flex-col items-center anim-element pop-in hover:-translate-y-2 transition-transform w-full md:w-64" style={{animationDelay: `${0.6+idx*0.1}s`}}>
-                                                    <div className={`text-5xl md:text-6xl font-black mb-3 ${stat.textColor}`}>
+                                                <div key={idx} className="bg-white/60 p-4 lg:p-6 rounded-2xl lg:rounded-[2rem] shadow-sm border border-slate-100 flex flex-col items-center anim-element pop-in hover:-translate-y-2 transition-transform w-40 lg:w-56" style={{animationDelay: `${0.6+idx*0.1}s`}}>
+                                                    <div className={`text-4xl lg:text-5xl font-black mb-2 ${stat.textColor}`}>
                                                         <AnimatedNumber valueStr={stat.value} />
                                                     </div>
-                                                    <div className="text-xl font-bold text-slate-800 mb-1">{stat.label}</div>
-                                                    <div className="text-sm text-slate-500 font-medium text-center">{stat.desc}</div>
+                                                    <div className="text-sm lg:text-lg font-bold text-slate-800 mb-0.5">{stat.label}</div>
+                                                    <div className="text-[10px] lg:text-xs text-slate-500 font-medium text-center">{stat.desc}</div>
                                                 </div>
                                             ))}
                                         </div>
@@ -691,74 +690,68 @@
 
                             {/* Final Summary Layout */}
                             {slide.layout === "final" && (
-                                <div className="flex flex-col md:flex-row items-center gap-8 md:gap-12 w-full h-full text-left">
-                                    <div className="w-full md:w-5/12 flex flex-col justify-center">
-                                        <h2 className="anim-element slide-in d-2 text-4xl md:text-5xl lg:text-6xl font-black text-slate-800 mb-4 tracking-tight leading-tight">{slide.title}</h2>
-                                        <h3 className="anim-element slide-in d-3 text-2xl text-emerald-600 font-extrabold mb-8">{slide.subtitle}</h3>
-                                        <p className="anim-element slide-in d-4 text-slate-600 mb-10 text-lg lg:text-xl font-medium leading-relaxed">{slide.content}</p>
+                                <div className="flex flex-row items-center justify-between gap-6 lg:gap-10 w-full h-full text-left px-4 lg:px-8 mt-4">
+                                    <div className="w-1/2 flex flex-col justify-center">
+                                        <h2 className="anim-element slide-in d-2 text-3xl lg:text-5xl font-black text-slate-800 mb-3 lg:mb-5 tracking-tight leading-tight">{slide.title}</h2>
+                                        <h3 className="anim-element slide-in d-3 text-lg lg:text-xl text-emerald-600 font-extrabold mb-5 lg:mb-8">{slide.subtitle}</h3>
+                                        <p className="anim-element slide-in d-4 text-slate-600 mb-6 lg:mb-8 text-sm lg:text-base font-medium leading-relaxed">{slide.content}</p>
                                         
                                         {slide.stats && (
-                                            <div className="grid grid-cols-2 gap-4 md:gap-6 anim-element slide-in d-5">
+                                            <div className="grid grid-cols-2 gap-3 lg:gap-5 anim-element slide-in d-5">
                                                 {slide.stats.map((stat, idx) => (
-                                                    <div key={idx} className="bg-white/80 p-5 rounded-3xl shadow-sm border border-slate-100 flex flex-col items-center justify-center text-center">
-                                                        <div className={`text-4xl md:text-5xl font-black mb-2 ${stat.textColor}`}>
+                                                    <div key={idx} className="bg-white/80 p-3 lg:p-4 rounded-xl lg:rounded-2xl shadow-sm border border-slate-100 flex flex-col items-center justify-center text-center">
+                                                        <div className={`text-3xl lg:text-4xl font-black mb-1 ${stat.textColor}`}>
                                                             <AnimatedNumber valueStr={stat.value} />
                                                         </div>
-                                                        <div className="text-lg font-bold text-slate-800">{stat.label}</div>
-                                                        <div className="text-xs text-slate-500 mt-1">{stat.desc}</div>
+                                                        <div className="text-xs lg:text-sm font-bold text-slate-800">{stat.label}</div>
+                                                        <div className="text-[9px] lg:text-[10px] text-slate-500 mt-1">{stat.desc}</div>
                                                     </div>
                                                 ))}
                                             </div>
                                         )}
                                     </div>
                                     
-                                    <div className="w-full md:w-7/12 anim-element pop-in d-4 mt-6 md:mt-0">
-                                        <div className="w-full aspect-[16/10] rounded-[2.5rem] md:rounded-[3rem] overflow-hidden shadow-2xl border-[6px] md:border-[8px] border-white relative group bg-slate-100 transform -rotate-1 hover:rotate-0 transition-transform duration-700">
+                                    <div className="w-1/2 h-full py-4 anim-element pop-in d-4 flex justify-center items-center">
+                                        <div className="w-full h-[80%] lg:h-full aspect-[4/3] lg:aspect-video rounded-[1.5rem] lg:rounded-[2rem] overflow-hidden shadow-xl border-[4px] lg:border-[6px] border-white relative group bg-slate-100 transform -rotate-1 hover:rotate-0 transition-transform duration-700">
                                             <DraggableImage src={slide.image} className="w-full h-full ken-burns" alt="Ирээдүйн боловсрол" initialPos={40} axis="both" objectFit="object-cover" />
                                             <div className="absolute inset-0 bg-gradient-to-t from-slate-900/20 to-transparent pointer-events-none"></div>
-                                            <div className="absolute inset-0 ring-1 ring-inset ring-black/10 rounded-[2.5rem] pointer-events-none"></div>
                                         </div>
                                     </div>
                                 </div>
                             )}
 
-                            {/* Gallery Layout (СЛАЙД 7 - Хүрээнд нийцсэн + AUTO-ZOOM видео горимтой) */}
+                            {/* Gallery Layout (СЛАЙД 7 - Хүрээнд нийцсэн + 16:9 харьцаанд тохируулсан) */}
                             {slide.layout === "gallery" && (
-                                <div className="flex flex-col items-center justify-center w-full h-full text-center mt-2 relative">
-                                    {/* Гарчиггүй болсон тул өндрийг дээд цэгт (h-[75vh]) хүртэл томруулсан */}
-                                    <div className={`relative w-full flex flex-wrap justify-center items-center gap-4 md:gap-6 max-w-6xl mx-auto anim-element slide-in d-4 h-[75vh]`}>
+                                <div className="flex flex-col items-center justify-center w-full h-full text-center relative px-2">
+                                    {/* 16:9 дотор маш сайн багтахын тулд container-г min-h-0 болгож, height-ийг автоматаар тохируулсан */}
+                                    <div className="flex-1 min-h-0 w-full flex flex-nowrap justify-center items-center gap-2 md:gap-4 max-w-5xl mx-auto anim-element slide-in d-4">
                                         {slide.images.map((img, idx) => {
-                                            const rotations = ['-rotate-2', 'rotate-2', '-rotate-1', 'rotate-3', '-rotate-2'];
-                                            
-                                            // Видео горим идэвхтэй үед индекс нь таарч байвал автоматаар томорно
+                                            const rotations = ['-rotate-3', 'rotate-2', '-rotate-1', 'rotate-3', '-rotate-2'];
                                             const isActive = autoZoomIndex === idx;
                                             
+                                            // 60% height * 1.5 scale = 90% -> Бусад элементүүдтэй халихгүй
                                             const transformClass = isActive 
-                                                ? "scale-[1.8] md:scale-[2.2] !rotate-0 z-[100]" 
-                                                : "hover:scale-[1.8] md:hover:scale-[2.2] hover:rotate-0 hover:z-[100]";
-                                                
+                                                ? "scale-[1.4] lg:scale-[1.5] !rotate-0 z-[100]" 
+                                                : "hover:scale-[1.4] lg:hover:scale-[1.5] hover:rotate-0 hover:z-[100]";
                                             const shadowClass = isActive 
-                                                ? "shadow-[0_25px_50px_rgba(0,0,0,0.4)]" 
-                                                : "group-hover:shadow-[0_25px_50px_rgba(0,0,0,0.4)]";
+                                                ? "shadow-[0_20px_40px_rgba(0,0,0,0.4)]" 
+                                                : "group-hover:shadow-[0_20px_40px_rgba(0,0,0,0.4)]";
 
                                             return (
                                                 <div key={idx} 
-                                                     className={`relative w-[45%] md:w-[30%] lg:w-[18%] transition-transform duration-500 ease-out group cursor-pointer ${rotations[idx]} ${transformClass}`}>
+                                                     className={`relative h-[55%] lg:h-[60%] transition-transform duration-500 ease-out group cursor-pointer flex-shrink-0 ${rotations[idx]} ${transformClass}`}>
                                                     
-                                                    {/* Хүрээ нь зурагтай яг нийцэх (aspect-auto болон object-contain ашиглах) */}
-                                                    <div className={`relative rounded-xl md:rounded-2xl p-2 shadow-lg border-[4px] border-white bg-white transition-shadow duration-500 ${shadowClass}`}>
-                                                        
-                                                        {/* Хөндлөн зургийг бүтнээр харуулахын тулд h-auto ашиглана */}
+                                                    <div className={`h-full p-1.5 lg:p-2 rounded-xl lg:rounded-2xl shadow-md border-[3px] lg:border-[4px] border-white bg-white transition-shadow duration-500 ${shadowClass}`}>
                                                         <img 
                                                             src={img} 
-                                                            className="w-full h-auto rounded-md object-contain bg-slate-50" 
+                                                            className="h-full w-auto object-contain rounded-md lg:rounded-lg bg-slate-50" 
                                                             alt={`Сэтгэгдэл ${idx+1}`} 
                                                         />
                                                         
-                                                        {/* Hover буюу AutoZoom үед гарч ирэх хүрээний нөлөө */}
-                                                        <div className={`absolute inset-0 bg-pink-500/10 transition-opacity flex items-center justify-center pointer-events-none rounded-xl ${isActive ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'}`}>
-                                                            <div className={`bg-white/90 text-pink-600 w-10 h-10 flex items-center justify-center rounded-full shadow-lg transform transition-transform duration-300 ${isActive ? 'scale-100' : 'scale-50 group-hover:scale-100'}`}>
-                                                                <i className="fa-solid fa-expand"></i>
+                                                        {/* Hover Effect */}
+                                                        <div className={`absolute inset-0 bg-pink-500/10 transition-opacity flex items-center justify-center pointer-events-none rounded-xl lg:rounded-2xl ${isActive ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'}`}>
+                                                            <div className={`bg-white/90 text-pink-600 w-8 h-8 flex items-center justify-center rounded-full shadow-lg transform transition-transform duration-300 ${isActive ? 'scale-100' : 'scale-50 group-hover:scale-100'}`}>
+                                                                <i className="fa-solid fa-expand text-xs"></i>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -771,42 +764,42 @@
 
                         </div>
 
-                        {/* Navigation Controls (Бичлэг хийх үед автоматаар нуугдаж, видеог цэвэрхэн болгоно) */}
-                        <div className={`absolute bottom-8 left-0 w-full px-8 md:px-16 flex flex-col md:flex-row items-center justify-between z-40 gap-4 transition-all duration-700 ${isRecording ? 'translate-y-20 opacity-0 pointer-events-none' : 'translate-y-0 opacity-100'}`}>
+                        {/* Navigation Controls */}
+                        <div className={`absolute bottom-4 lg:bottom-6 left-0 w-full px-6 lg:px-12 flex items-center justify-between z-40 transition-all duration-700 ${isRecording ? 'translate-y-20 opacity-0 pointer-events-none' : 'translate-y-0 opacity-100'}`}>
                             {/* Slide Dots */}
-                            <div className="flex gap-2">
+                            <div className="flex gap-1.5 lg:gap-2">
                                 {slides.map((_, i) => (
                                     <button 
                                         key={i} 
                                         onClick={() => { setCurrent(i); setIsPlaying(false); }}
-                                        className={`h-2 transition-all duration-300 rounded-full ${i === current ? 'w-10 bg-blue-600' : 'w-2 bg-slate-300 hover:bg-blue-400'}`}
+                                        className={`h-1.5 lg:h-2 transition-all duration-300 rounded-full ${i === current ? 'w-6 lg:w-10 bg-blue-600' : 'w-1.5 lg:w-2 bg-slate-300 hover:bg-blue-400'}`}
                                         aria-label={`Слайд ${i + 1}`}
                                     />
                                 ))}
                             </div>
 
                             {/* Media Controls */}
-                            <div className="flex items-center gap-2 bg-white/80 backdrop-blur-md px-3 py-2 rounded-full shadow-sm border border-slate-200">
-                                <button onClick={() => { setCurrent(c => (c - 1 + slides.length) % slides.length); setIsPlaying(false); }} className="w-10 h-10 flex items-center justify-center rounded-full text-slate-600 hover:bg-slate-100 transition-colors">
-                                    <i className="fa-solid fa-chevron-left"></i>
+                            <div className="flex items-center gap-1.5 bg-white/80 backdrop-blur-md px-2 py-1 lg:px-3 lg:py-1.5 rounded-full shadow-sm border border-slate-200">
+                                <button onClick={() => { setCurrent(c => (c - 1 + slides.length) % slides.length); setIsPlaying(false); }} className="w-7 h-7 lg:w-9 lg:h-9 flex items-center justify-center rounded-full text-slate-600 hover:bg-slate-100 transition-colors">
+                                    <i className="fa-solid fa-chevron-left text-xs lg:text-sm"></i>
                                 </button>
                                 
-                                <button onClick={() => setIsPlaying(!isPlaying)} className={`w-12 h-12 flex items-center justify-center rounded-full text-white shadow-md transition-transform hover:scale-105 active:scale-95 ${isPlaying ? 'bg-amber-500' : 'bg-blue-600'}`}>
-                                    <i className={`fa-solid ${isPlaying ? 'fa-pause' : 'fa-play'} ${!isPlaying && 'ml-1'}`}></i>
+                                <button onClick={() => setIsPlaying(!isPlaying)} className={`w-9 h-9 lg:w-11 lg:h-11 flex items-center justify-center rounded-full text-white shadow-md transition-transform hover:scale-105 active:scale-95 ${isPlaying ? 'bg-amber-500' : 'bg-blue-600'}`}>
+                                    <i className={`fa-solid ${isPlaying ? 'fa-pause' : 'fa-play'} ${!isPlaying && 'ml-0.5 lg:ml-1'} text-xs lg:text-sm`}></i>
                                 </button>
                                 
-                                <button onClick={() => { setCurrent(c => (c + 1) % slides.length); setIsPlaying(false); }} className="w-10 h-10 flex items-center justify-center rounded-full text-slate-600 hover:bg-slate-100 transition-colors">
-                                    <i className="fa-solid fa-chevron-right"></i>
+                                <button onClick={() => { setCurrent(c => (c + 1) % slides.length); setIsPlaying(false); }} className="w-7 h-7 lg:w-9 lg:h-9 flex items-center justify-center rounded-full text-slate-600 hover:bg-slate-100 transition-colors">
+                                    <i className="fa-solid fa-chevron-right text-xs lg:text-sm"></i>
                                 </button>
                                 
-                                <div className="w-px h-6 bg-slate-200 mx-2"></div>
+                                <div className="w-px h-4 lg:h-5 bg-slate-200 mx-1"></div>
                                 
                                 <button 
                                     onClick={isRecording ? stopRecording : startRecording} 
-                                    className={`w-10 h-10 flex items-center justify-center rounded-full transition-all text-slate-400 hover:text-slate-700 hover:bg-slate-100`}
+                                    className={`w-7 h-7 lg:w-9 lg:h-9 flex items-center justify-center rounded-full transition-all text-slate-400 hover:text-slate-700 hover:bg-slate-100`}
                                     title={"Дэлгэцнээс видео бичих"}
                                 >
-                                    <i className="fa-solid fa-video"></i>
+                                    <i className="fa-solid fa-video text-xs lg:text-sm"></i>
                                 </button>
                             </div>
                         </div>
